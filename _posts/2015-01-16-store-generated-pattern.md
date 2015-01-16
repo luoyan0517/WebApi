@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "StoreGeneratedPattern Annotation (V3)"
+title: "StoreGeneratedPattern Annotation V3"
 description: ""
 category: edm model builder
 ---
