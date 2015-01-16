@@ -4,14 +4,14 @@ layout: post
 category: OData Parser Extension
 ---
 
-Let's show how to expand the default OData Uri Parser behaviour:
+Let's show how to extend the default OData Uri Parser behavior:
 
 ### Basic Case Insensitive Support
-User can configure as below to support basic case-insensitive parser behaviour.
+User can configure as below to support basic case-insensitive parser behavior.
 
 {% highlight csharp %}
 HttpConfiguration config = …
-config.EnableCaseInsensitive(true);
+config.EnableCaseInsensitive(caseInsensitive: true);
 config.MapODataServiceRoute("odata", "odata", edmModel);
 {% endhighlight %}
 **Note**: Case insensitive flag enables both for metadata and key-words, not only on path segment, but also on query option.
@@ -27,7 +27,7 @@ User can configure as below to support basic unqualified function/action call.
 
 {% highlight csharp %}
 HttpConfiguration config = …
-config.EnableUnqualifiedNameCall(true);
+config.EnableUnqualifiedNameCall(unqualifiedNameCall: true);
 config.MapODataServiceRoute("odata", "odata", edmModel);
 {% endhighlight %}
 
@@ -40,11 +40,11 @@ Now, you can call as:
 * ~/odata/Customers(112)/GetOrdersCount(factor=1)
 
 #### Enum prefix free
-User can configure as below to support basic string as enum parser behaviour.
+User can configure as below to support basic string as enum parser behavior.
 
 {% highlight csharp %}
 HttpConfiguration config = …
-config.EnableEnumPrefixFree(true);
+config.EnableEnumPrefixFree(enumPrefixFree: true);
 config.MapODataServiceRoute("odata", "odata", edmModel);
 {% endhighlight %}
 
@@ -61,9 +61,9 @@ User can configure as below to support case insensitive & unqualified function c
 
 {% highlight csharp %}
 HttpConfiguration config = …
-config.EnableCaseInsensitive(true);
-config. EnableUnqualifiedNameCall (true);
-config. EnableEnumPrefixFree (true);
+config.EnableCaseInsensitive(caseInsensitive: true);
+config.EnableUnqualifiedNameCall(unqualifiedNameCall: true);
+config.EnableEnumPrefixFree(enumPrefixFree: true);
 
 config.MapODataServiceRoute("odata", "odata", edmModel);
 {% endhighlight %}
