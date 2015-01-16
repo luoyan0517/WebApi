@@ -23,7 +23,7 @@ Some `inline code`.
 
 {% highlight csharp %}
 string code = "highlighted code";
-{% end highlight %}
+{% endhighlight %}
 
 List items: 
 
