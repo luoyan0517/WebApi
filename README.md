@@ -2,7 +2,7 @@
 
 ## Writing a new post
 
-The site is available at http://odata.github.io/webapi/.
+The site is available at http://odata.github.io/WebApi/.
 
 To add a new sample, add a new markdown file to the `_posts` folder.
 
