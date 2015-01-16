@@ -48,6 +48,8 @@ builder.EntityType<Order>()
 {% endhighlight %}
 
 ### Define Referential Constraint Implicitly
+Let's modify the model
+
 #### Using Attribute
 
 There is an attribute named “ForeignKeyAttribute” which can be place on:
