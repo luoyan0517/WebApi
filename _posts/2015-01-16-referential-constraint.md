@@ -6,11 +6,6 @@ category: Edm Model Builder
 
 The following sample codes can be used for Web API OData V3 & V4 with a little bit function name changing.
 
-### CLR Classes
-Let's define the below two CLR classes as model.
-
-
-
 ### Define Referential Constraint Using Attribute
 
 There is an attribute named “ForeignKeyAttribute” which can be place on:
