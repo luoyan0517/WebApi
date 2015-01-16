@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ConcurrencyMode and ETag (V3)"
+title: "ConcurrencyMode and ETag V3"
 description: ""
 category: edm model builder
 ---
