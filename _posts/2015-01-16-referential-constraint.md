@@ -29,31 +29,7 @@ public class Order
 
 {% endhighlight %}
 
-### Define Referential Constraint Programmatically
-You can call the new added Public APIs (HasRequired, HasOptional) to define the referential constraint when defining a navigation property. For example:
-
-{% highlight csharp %}
-
-ODataModelBuilder builder = new ODataModelBuilder();
-builder.EntityType<Customer>().HasKey(c => c.Id).HasMany(c => c.Orders);
-builder.EntityType<Order>().HasKey(c => c.OrderId)
-    .HasRequired(o => o.Customer, (o, c) => o.CustomerId == c.Id);
-    .CascadeOnDelete();
-    
-{% endhighlight %}
-
-It also supports to define multiple referential constraints, for example:
-{% highlight csharp %}
-builder.EntityType<Order>()
-    .HasKey(o => o.OrderId)
-    .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
-    
-{% endhighlight %}
-
-### Define Referential Constraint Declaratively
-Let's modify the model
-
-#### Using Attribute
+### Define Referential Constraint Using Attribute
 
 There is an attribute named “ForeignKeyAttribute” which can be place on:
 
@@ -91,7 +67,21 @@ public class Order
 {% endhighlight %}
 *Where*, *Customer* has two keys.
 
-#### Using Convention
+Now, you can build the Edm Model by convention model builder as:
+
+{% highlight csharp %}
+
+public IEdmModel GetEdmModel()
+{            
+    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+    builder.EntitySet<Customer>("Customers");
+    builder.EntitySet<Order>("Orders");
+    return builder.GetEdmModel();
+}
+
+{% endhighlight %}
+
+#### Define Referential Constraint Using Convention
 
 If user doesn’t add *any* referential constraint, Web API will try to help user to discovery the foreign key automatically. There are two conventions as follows:
 1.With same property type and same type name plus key name. For example:
@@ -135,19 +125,27 @@ public class Order
 {% endhighlight %}
 *Where*, Property (key) "CustomerId" in the *Customer* equals the property "CustomerId" in the *Order*.
 
-#### Build Edm Model
-It's normally to build the Edm Model by convention model builder.
+Now, you can build the Edm Model using convention model same as above.
+
+### Define Referential Constraint Programmatically
+You can call the new added Public APIs (HasRequired, HasOptional) to define the referential constraint when defining a navigation property. For example:
 
 {% highlight csharp %}
 
-public IEdmModel GetEdmModel()
-{            
-    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Customer>("Customers");
-    builder.EntitySet<Order>("Orders");
-    return builder.GetEdmModel();
-}
+ODataModelBuilder builder = new ODataModelBuilder();
+builder.EntityType<Customer>().HasKey(c => c.Id).HasMany(c => c.Orders);
+builder.EntityType<Order>().HasKey(c => c.OrderId)
+    .HasRequired(o => o.Customer, (o, c) => o.CustomerId == c.Id);
+    .CascadeOnDelete();
+    
+{% endhighlight %}
 
+It also supports to define multiple referential constraints, for example:
+{% highlight csharp %}
+builder.EntityType<Order>()
+    .HasKey(o => o.OrderId)
+    .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
+    
 {% endhighlight %}
 
 Thanks.
