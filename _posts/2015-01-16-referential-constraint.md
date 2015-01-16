@@ -6,7 +6,7 @@ category: Edm Model Builder
 
 The following sample codes can be used for Web API OData V3 & V4 with a little bit function name changing.
 
-#### Let's have a sample model
+### Let's have a sample model
 
 {% highlight csharp %}
 
@@ -28,7 +28,8 @@ public class Order
 
 {% endhighlight %}
 
-#### Define Referential Constraint Explicitly
+### Define Referential Constraint Explicitly
+You can call the new added Public APIs (HasRequired, HasOptional) to define the referential constraint when defining a navigation property. For example:
 
 {% highlight csharp %}
 
@@ -36,16 +37,22 @@ ODataModelBuilder builder = new ODataModelBuilder();
 builder.EntityType<Customer>().HasKey(c => c.Id).HasMany(c => c.Orders);
 builder.EntityType<Order>().HasKey(c => c.OrderId)
     .HasRequired(o => o.Customer, (o, c) => o.CustomerId == c.Id);
-
+    .CascadeOnDelete();
 {% endhighlight %}
 
-#### Define Referential Constraint Implicitly
+It also supports to define multi referential constraint, for example:
+{% highlight csharp %}
+builder.EntityType<Order>()
+    .HasKey(o => o.OrderId)
+    .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
+{% endhighlight %}
 
-##### Using Attribute
+### Define Referential Constraint Implicitly
+#### Using Attribute
 
 There is an attribute named “ForeignKeyAttribute” which can be place on:
 
-1. the foreign key property and specify the associated navigation property name, for example: 
+1.the foreign key property and specify the associated navigation property name, for example: 
 
 {% highlight csharp %}
 public class Order
@@ -60,8 +67,7 @@ public class Order
 
 {% endhighlight %}
 
-
-2. a navigation property and specify the associated foreign key name, for example:
+2.a navigation property and specify the associated foreign key name, for example:
 
 {% highlight csharp %}
 public class Order
@@ -76,12 +82,12 @@ public class Order
 }
 
 {% endhighlight %}
-Where, Customer has two keys.
+*Where*, *Customer* has two keys.
 
-##### Using Convention
+#### Using Convention
 
-If users don’t add any referential constraint, Web API will try to help users to discovery the foreign key automatically. There are two conventions as follows:
-1. With same property type and same type name plus key name. For example:
+If users don’t add *any* referential constraint, Web API will try to help users to discovery the foreign key automatically. There are two conventions as follows:
+1.With same property type and same type name plus key name. For example:
    
 {% highlight csharp %}
 public class Customer
@@ -90,7 +96,6 @@ public class Customer
    public string Id {get;set;}
    public IList<Order> Orders {get;set;}
 }
-
 public class Order
 {
     public int OrderId { get; set; }
@@ -101,7 +106,7 @@ public class Order
 {% endhighlight %}
 *Where*, *Customer* type name "Customer" plus key name "Id" equals the property "CustomerId" in the *Order*.
 
-2. With same property type and same property name. For example:
+2.With same property type and same property name. For example:
    
 {% highlight csharp %}
 public class Customer
@@ -119,11 +124,10 @@ public class Order
 }
 
 {% endhighlight %}
-
 *Where*, Property (key) "CustomerId" in the *Customer* equals the property "CustomerId" in the *Order*.
 
-##### Build Edm Model
-It's normally to build the Edm Model implicitly.
+#### Build Edm Model
+It's normally to build the Edm Model by convention model builder.
 
 {% highlight csharp %}
 public IEdmModel GetEdmModel()
@@ -133,5 +137,6 @@ public IEdmModel GetEdmModel()
     builder.EntitySet<Order>("Orders");
     return builder.GetEdmModel();
 }
-
 {% endhighlight %}
+
+Thanks.
