@@ -9,25 +9,7 @@ The following sample codes can be used for Web API OData V3 & V4 with a little b
 ### CLR Classes
 Let's define the below two CLR classes as model.
 
-{% highlight csharp %}
 
-public class Customer
-{
-    public int Id { get; set; }
-       
-    public IList<Order> Orders { get; set; }
-}
-
-public class Order
-{
-    public int OrderId { get; set; }
- 
-    public int CustomerId { get; set; }         
-
-    public Customer Customer { get; set; }
-}
-
-{% endhighlight %}
 
 ### Define Referential Constraint Using Attribute
 
@@ -132,6 +114,22 @@ You can call the new added Public APIs (HasRequired, HasOptional) to define the 
 
 {% highlight csharp %}
 
+public class Customer
+{
+    public int Id { get; set; }
+       
+    public IList<Order> Orders { get; set; }
+}
+
+public class Order
+{
+    public int OrderId { get; set; }
+ 
+    public int CustomerId { get; set; }         
+
+    public Customer Customer { get; set; }
+}
+
 ODataModelBuilder builder = new ODataModelBuilder();
 builder.EntityType<Customer>().HasKey(c => c.Id).HasMany(c => c.Orders);
 builder.EntityType<Order>().HasKey(c => c.OrderId)
@@ -142,6 +140,7 @@ builder.EntityType<Order>().HasKey(c => c.OrderId)
 
 It also supports to define multiple referential constraints, for example:
 {% highlight csharp %}
+
 builder.EntityType<Order>()
     .HasKey(o => o.OrderId)
     .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
