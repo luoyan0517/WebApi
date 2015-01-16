@@ -6,7 +6,7 @@ category: Edm Model Builder
 
 The following sample codes can be used for Web API OData V3 & V4 with a little bit function name changing.
 
-### CLR Class
+### CLR Classes
 Let's define the below two CLR classes as model.
 
 {% highlight csharp %}
@@ -39,6 +39,7 @@ builder.EntityType<Customer>().HasKey(c => c.Id).HasMany(c => c.Orders);
 builder.EntityType<Order>().HasKey(c => c.OrderId)
     .HasRequired(o => o.Customer, (o, c) => o.CustomerId == c.Id);
     .CascadeOnDelete();
+    
 {% endhighlight %}
 
 It also supports to define multiple referential constraints, for example:
@@ -46,6 +47,7 @@ It also supports to define multiple referential constraints, for example:
 builder.EntityType<Order>()
     .HasKey(o => o.OrderId)
     .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
+    
 {% endhighlight %}
 
 ### Define Referential Constraint Declaratively
@@ -58,6 +60,7 @@ There is an attribute named “ForeignKeyAttribute” which can be place on:
 1.the foreign key property and specify the associated navigation property name, for example: 
 
 {% highlight csharp %}
+
 public class Order
 {
     public int OrderId { get; set; }
@@ -73,6 +76,7 @@ public class Order
 2.a navigation property and specify the associated foreign key name, for example:
 
 {% highlight csharp %}
+
 public class Order
 {
     public int OrderId { get; set; }
@@ -93,6 +97,7 @@ If user doesn’t add *any* referential constraint, Web API will try to help use
 1.With same property type and same type name plus key name. For example:
    
 {% highlight csharp %}
+
 public class Customer
 { 
    [Key]
@@ -112,6 +117,7 @@ public class Order
 2.With same property type and same property name. For example:
    
 {% highlight csharp %}
+
 public class Customer
 { 
    [Key]
@@ -133,6 +139,7 @@ public class Order
 It's normally to build the Edm Model by convention model builder.
 
 {% highlight csharp %}
+
 public IEdmModel GetEdmModel()
 {            
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
@@ -140,6 +147,7 @@ public IEdmModel GetEdmModel()
     builder.EntitySet<Order>("Orders");
     return builder.GetEdmModel();
 }
+
 {% endhighlight %}
 
 Thanks.
