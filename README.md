@@ -1,4 +1,4 @@
-# GitHub Pages for ASP.NET Web API OData Samples
+# GitHub Pages for OData Web API Samples
 
 ## Writing a new post
 
