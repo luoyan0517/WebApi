@@ -2,7 +2,7 @@
 layout: post
 title: "StoreGeneratedPattern Annotation (V3)"
 description: ""
-categories: edm model builder
+category: edm model builder
 ---
 
 StoreGeneratedPattern is an attribute annotation (in V3 Protocol) on property of entity type, which can be applied to primitive property. The values are “None”, “Identity” and “Computed”, which indicates whether the property of entity needs a value during insert and update operation. The annotation in metadata will be shown as following:
