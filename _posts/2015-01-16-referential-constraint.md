@@ -6,7 +6,8 @@ category: Edm Model Builder
 
 The following sample codes can be used for Web API OData V3 & V4 with a little bit function name changing.
 
-### Let's have a sample model
+### CLR Class
+Let's define the below two CLR classes as model.
 
 {% highlight csharp %}
 
@@ -28,7 +29,7 @@ public class Order
 
 {% endhighlight %}
 
-### Define Referential Constraint Explicitly
+### Define Referential Constraint Programmatically
 You can call the new added Public APIs (HasRequired, HasOptional) to define the referential constraint when defining a navigation property. For example:
 
 {% highlight csharp %}
@@ -40,14 +41,14 @@ builder.EntityType<Order>().HasKey(c => c.OrderId)
     .CascadeOnDelete();
 {% endhighlight %}
 
-It also supports to define multi referential constraint, for example:
+It also supports to define multiple referential constraints, for example:
 {% highlight csharp %}
 builder.EntityType<Order>()
     .HasKey(o => o.OrderId)
     .HasRequired(o => o.Customer, (o,c) => o.Key1 == c.Id1 && o.Key2 == c.Id2);
 {% endhighlight %}
 
-### Define Referential Constraint Implicitly
+### Define Referential Constraint Declaratively
 Let's modify the model
 
 #### Using Attribute
@@ -88,7 +89,7 @@ public class Order
 
 #### Using Convention
 
-If users don’t add *any* referential constraint, Web API will try to help users to discovery the foreign key automatically. There are two conventions as follows:
+If user doesn’t add *any* referential constraint, Web API will try to help user to discovery the foreign key automatically. There are two conventions as follows:
 1.With same property type and same type name plus key name. For example:
    
 {% highlight csharp %}
