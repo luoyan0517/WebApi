@@ -8,7 +8,7 @@ baseurl: "/WebApi" # the subpath of your site, e.g. /blog/
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 github_username:  odata
 
-permalink: /:categories/:title/
+permalink: /:title/
 
 # Build settings
 kramdown:
