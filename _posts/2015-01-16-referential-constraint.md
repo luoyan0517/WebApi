@@ -102,7 +102,7 @@ public class Order
 {% endhighlight %}
 *Where*, Property (key) "CustomerId" in the *Customer* equals the property "CustomerId" in the *Order*.
 
-Now, you can build the Edm Model using convention model same as above.
+Now, you can build the Edm Model using convention model builder same as above section.
 
 ### Define Referential Constraint Programmatically
 You can call the new added Public APIs (HasRequired, HasOptional) to define the referential constraint when defining a navigation property. For example:
