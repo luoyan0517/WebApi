@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "Convention model builder in Microsoft ASP.NET Web API 2.2 for OData v4.0"
