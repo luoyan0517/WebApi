@@ -6,9 +6,9 @@ using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Extensions;
 using System.Web.OData.Query;
+using System.Web.OData.Routing;
 using Microsoft.OData.Edm;
 using Microsoft.OData.Edm.Library;
-using Microsoft.OData.Core.UriParser.Semantic;
 
 namespace WebApiPerformance.Service
 {
@@ -21,9 +21,9 @@ namespace WebApiPerformance.Service
 
             var model = props.Model;
 
-            var es = (EntitySetSegment)props.Path.Segments[0];
+            var es = (EntitySetPathSegment)props.Path.Segments[0];
 
-            var entityType = es.EntitySet.EntityType();
+            var entityType = es.EntitySetBase.EntityType();
             var collectionType = new EdmCollectionType(new EdmEntityTypeReference(entityType, false));
 
             var queryContext = new ODataQueryContext(model, entityType, props.Path);
