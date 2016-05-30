@@ -17,6 +17,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>9f208c42</NuGetPackageImportStamp>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <OutputPath>..\..\..\bin\$(Configuration)\PerfTest\bin</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
